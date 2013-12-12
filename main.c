@@ -4,24 +4,26 @@
 #include <semaphore.h>
 #include <assert.h>
 
-#define true 1
-#define false 0
+#define TRUE 1
+#define FALSE 0
 
 #define PROCESSES 1
 
-void producer(void)
-{
-  while(true)
-  {
+struct shared {
+  sem_t p_sem;
+  sem_t c_sem;
+  int products_counter;
+} *shared_mem;
+
+void producer(void) {
+  while(TRUE) {
     // producing code here
     printf("Produced\n");
   }
 }
 
-void consumer(void)
-{
-  while(true)
-  {
+void consumer(void) {
+  while(TRUE) {
     // consuming code here
     printf("Consumed\n");
   }
@@ -29,42 +31,24 @@ void consumer(void)
 
 void run_tests(void);
 
-int main(void)
-{
+int main(int argc, char* argv[]) {
   run_tests();
 
-  // something is going to happen here
-  int id;
-  for (int i = 0; i < PROCESSES; ++i)
-  {
-    id = fork();
-    if(id < 0)
-    {
-      perror("Fork failed.\n");
-      exit(1);
-    }
-    else if (id == 0)
-    {
-      //consumer();
-      printf("Consumer (child) process started\n");
-      exit(0);
-    }
-    else if (id > 0)
-      printf("Producent (parent) process here\n");
-  }
-  //producer();
-  // end of something happening here
+  shared_mem = mmap(NULL, sizeof(struct shared), PROT_READ | PROT_WRITE,
+      MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
+  sem_init(&shared_mem->p_sem, 1, 1);
+  sem_init(&shared_mem->c_sem, 1, 0);
+  shared_mem->products_counter = 0;
 
-  // finishing
-  printf("Finished\n");
+  const int cnt_consuments = atoi(argv[1]);
+
 
   return 0;
 }
 
-void run_tests(void)
-{
-  assert(true  == 1);
-  assert(false == 0);
+void run_tests(void) {
+  assert(TRUE  == 1);
+  assert(FALSE == 0);
   assert(PROCESSES > 0);
 }
