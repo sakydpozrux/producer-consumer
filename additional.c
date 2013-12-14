@@ -3,6 +3,7 @@
 #include <sys/wait.h>
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 #include "additional.h"
 
@@ -22,6 +23,7 @@ void create_producer() {
     exit(127);
   } else { /* pid != 0 <=> parent process */
     producer.id = id;
+    printf("Created producer id - %d\n", id);
   }
 }
 
@@ -35,17 +37,21 @@ void create_consumers() {
       exit(127);
     } else { /* pid != 0 <=> parent process */
       *p = id;
+      printf("Created consumer id - %d\n", id);
     }
   }
 }
 
 void wait_for_producer() {
   waitpid(producer.id, 0, 0);
+  printf("Stopped producer id - %d\n", producer.id);
 }
 
 void wait_for_consumers() {
   pid_t* current_consumer = consumers.list;
-  for (int i = 0; i < consumers.number; ++i, ++current_consumer)
+  for (int i = 0; i < consumers.number; ++i, ++current_consumer) {
     waitpid(*current_consumer, 0, 0);
+    printf("Stopped consumer id - %d\n", *current_consumer);
+  }
 }
 

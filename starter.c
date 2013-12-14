@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
   printf("Creating producer process\n");
   create_producer();
 
-  printf("Creating %d consumers.\n", consumers.number);
+  printf("Creating %d consumer processes\n", consumers.number);
   create_consumers();
 
   wait_for_producer();
