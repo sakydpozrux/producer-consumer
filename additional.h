@@ -12,6 +12,7 @@ void wait_for_consumers();
 
 struct shared {
   sem_t i_sem;
+  int dupa;//TODO
 } *shared_mem;
 
 struct {

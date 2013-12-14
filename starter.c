@@ -14,6 +14,7 @@ int main(int argc, char* argv[]) {
   }
 
   shared_mem_init();
+  shared_mem->dupa = 123;//TODO
 
   printf("Creating producer process\n");
   create_producer();
@@ -23,6 +24,6 @@ int main(int argc, char* argv[]) {
 
   wait_for_producer();
   wait_for_consumers();
-
+  printf("DUPA-%d\n", shared_mem->dupa); //TODO
   return 0;
 }

@@ -18,6 +18,7 @@ void shared_mem_init() {
 
 void create_producer() {
   pid_t id = fork();
+  printf("fork id producer - %d", id);
   if (id == 0) { /* child process */
     execl("producer", "producer", NULL);
     exit(127);
