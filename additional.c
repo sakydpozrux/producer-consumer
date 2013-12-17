@@ -35,8 +35,8 @@ void shared_mem_init() {
 }
 
 void create_producer() {
+  printf("Creating producer process with sleep time %ds\n", producer.sleep_time);
   pid_t id = fork();
-  printf("Fork producer id - %d\n", id);
   if (id == 0) { /* child process */
     execl("producer", "producer", producer.sleep_time, NULL);
     exit(127);
@@ -47,12 +47,14 @@ void create_producer() {
 }
 
 void create_consumers() {
+  printf("Creating %d consumer processes with sleep time %ds\n", consumers.number, consumers.sleep_time);
   consumers.list = malloc(consumers.number * sizeof(pid_t));
   pid_t* p = consumers.list;
   for (int i = 0; i < consumers.number; ++i, ++p) {
     pid_t id = fork();
     if (id == 0) { /* child process */
-      execl("consumer", "consumer", consumers.sleep_time, NULL);
+      int asd = execl("consumer", "consumer", consumers.sleep_time, NULL);
+      printf("asd=%d\n", asd);
       exit(127);
     } else { /* pid != 0 <=> parent process */
       *p = id;

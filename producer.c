@@ -15,6 +15,6 @@ int main(int argc, char* argv[]) {
     sleep(sleep_time);
   }
   //shared_mem->dupa = 997;//TODO
-  printf("\n");
+  printf("PRODUCER\n");
   return 0;
 }

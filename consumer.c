@@ -14,6 +14,6 @@ int main(int argc, char* argv[]) {
     //TODO
     sleep(sleep_time);
   }
-  printf("\n");
+  printf("CONSUMER\n");
   return 0;
 }
