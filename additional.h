@@ -4,6 +4,7 @@
 #include <semaphore.h>
 
 
+void argv_init();
 void shared_mem_init();
 void create_producer();
 void create_consumers();
@@ -11,17 +12,18 @@ void wait_for_producer();
 void wait_for_consumers();
 
 struct shared {
-  sem_t i_sem;
-  int dupa;//TODO
+  sem_t sem;
 } *shared_mem;
 
 struct {
   pid_t id;
+  unsigned int sleep_time;
 } producer;
 
 struct {
   int number;
   pid_t* list;
+  unsigned int sleep_time;
 } consumers;
 
 #endif

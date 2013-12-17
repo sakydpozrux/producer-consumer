@@ -8,6 +8,24 @@
 #include "additional.h"
 
 
+void argv_init(int argc, char* argv[]) {
+  if (argc < 2 || argc > 4) {
+    puts("Usage example:");
+    printf("%s [NUMBER OF CONSUMERS]\n", argv[0]);
+    exit(1);
+  } else {
+    consumers.number = atoi(argv[1]);
+  }
+
+  if (argc == 4) {
+    producer.sleep_time  = atoi(argv[2]);
+    consumers.sleep_time = atoi(argv[3]);
+  } else {
+    producer.sleep_time  = 1;
+    consumers.sleep_time = 3;
+  }
+}
+
 void shared_mem_init() {
   int descriptor;
   descriptor = shm_open("/prodcons", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
@@ -18,9 +36,9 @@ void shared_mem_init() {
 
 void create_producer() {
   pid_t id = fork();
-  printf("fork id producer - %d", id);
+  printf("Fork producer id - %d\n", id);
   if (id == 0) { /* child process */
-    execl("producer", "producer", NULL);
+    execl("producer", "producer", producer.sleep_time, NULL);
     exit(127);
   } else { /* pid != 0 <=> parent process */
     producer.id = id;
@@ -34,7 +52,7 @@ void create_consumers() {
   for (int i = 0; i < consumers.number; ++i, ++p) {
     pid_t id = fork();
     if (id == 0) { /* child process */
-      execl("consumer", "consumer", NULL);
+      execl("consumer", "consumer", consumers.sleep_time, NULL);
       exit(127);
     } else { /* pid != 0 <=> parent process */
       *p = id;
