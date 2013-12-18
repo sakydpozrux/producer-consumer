@@ -1,3 +1,6 @@
+// Systemy Opracyjne
+// 18.12.2013 Szymon Koper
+// additional.h
 #ifndef helpful
 #define helpful
 #include <unistd.h>
@@ -13,6 +16,7 @@ void wait_for_consumers();
 
 struct shared {
   sem_t sem;
+  int fruits_number;
 } *shared_mem;
 
 struct {

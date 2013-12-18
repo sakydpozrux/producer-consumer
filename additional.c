@@ -1,9 +1,14 @@
+// Systemy Opracyjne
+// 18.12.2013 Szymon Koper
+// additional.c
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <errno.h>
+#include <string.h>
 
 #include "additional.h"
 
@@ -32,13 +37,17 @@ void shared_mem_init() {
   ftruncate(descriptor, sizeof(struct shared));
 
   shared_mem = mmap(NULL, sizeof(struct shared), PROT_READ | PROT_WRITE, MAP_SHARED, descriptor, 0);
+
+  shared_mem->fruits_number = 0;
 }
 
 void create_producer() {
   printf("Creating producer process with sleep time %ds\n", producer.sleep_time);
   pid_t id = fork();
   if (id == 0) { /* child process */
-    execl("producer", "producer", producer.sleep_time, NULL);
+      char str_sleep_time[129];
+      sprintf(str_sleep_time, "%d", producer.sleep_time);
+      execl("producer", "producer", str_sleep_time, NULL);
     exit(127);
   } else { /* pid != 0 <=> parent process */
     producer.id = id;
@@ -53,8 +62,9 @@ void create_consumers() {
   for (int i = 0; i < consumers.number; ++i, ++p) {
     pid_t id = fork();
     if (id == 0) { /* child process */
-      int asd = execl("consumer", "consumer", consumers.sleep_time, NULL);
-      printf("asd=%d\n", asd);
+      char str_sleep_time[129];
+      sprintf(str_sleep_time, "%d", consumers.sleep_time);
+      execl("consumer", "consumer", str_sleep_time, NULL);
       exit(127);
     } else { /* pid != 0 <=> parent process */
       *p = id;
