@@ -5,8 +5,10 @@
 #define helpful
 #include <unistd.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 
+void show_run_info();
 void argv_init();
 void shared_mem_init();
 void create_producer();
@@ -29,6 +31,11 @@ struct {
   pid_t* list;
   unsigned int sleep_time;
 } consumers;
+
+struct {
+  int argc;
+  char** argv;
+} run;
 
 #endif
 

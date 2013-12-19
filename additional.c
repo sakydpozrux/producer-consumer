@@ -12,22 +12,60 @@
 
 #include "additional.h"
 
+#define PRODUCER_SLEEP_TIME 1
+#define CONSUMER_SLEEP_TIME 3
+
+void show_usage() {
+  char* program_name = run.argv[0];
+  printf("%s usage examples:\n", program_name);
+  printf("%s [NUMBER OF CONSUMERS]\n", program_name);
+  printf("%s [nr_of_CONSUMERS] [PRODUCER SLEEP TIME] [CONSUMER SLEEP TIME]\n", program_name);
+}
+
+bool valid_arguments_counter() {
+  if (run.argc == 2 || run.argc == 4) return true;
+  else return false;
+}
+
+bool valid_arguments_vector() {
+  if (atoi(run.argv[1]) >  0 &&
+      atoi(run.argv[2]) >= 0 &&
+      atoi(run.argv[3]) >= 0) return true;
+  else return false;
+}
+
+bool valid_arguments() {
+  if (valid_arguments_counter() && valid_arguments_vector()) return true;
+  else return false;
+}
+
+void show_run_info() {
+  printf(
+    "Run informations: \n"
+    "%d\t- number of consumers\n"
+    "%d\t- waiting time for producer\n"
+    "%d\t- waiting time for consumer\n"
+    , consumers.number, producer.sleep_time, consumers.sleep_time);
+}
 
 void argv_init(int argc, char* argv[]) {
-  if (argc < 2 || argc > 4) {
-    puts("Usage example:");
-    printf("%s [NUMBER OF CONSUMERS]\n", argv[0]);
-    exit(1);
-  } else {
+  run.argc = argc;
+  run.argv = argv;
+  
+  if (valid_arguments()) {
+    puts("ARGUMENTS VALID");
     consumers.number = atoi(argv[1]);
-  }
 
-  if (argc == 4) {
-    producer.sleep_time  = atoi(argv[2]);
-    consumers.sleep_time = atoi(argv[3]);
+    if (argc == 4) {
+      producer.sleep_time  = atoi(argv[2]);
+      consumers.sleep_time = atoi(argv[3]);
+    } else {
+      producer.sleep_time  = PRODUCER_SLEEP_TIME;
+      consumers.sleep_time = CONSUMER_SLEEP_TIME;
+    }
   } else {
-    producer.sleep_time  = 1;
-    consumers.sleep_time = 3;
+    show_usage();
+    exit(1);
   }
 }
 

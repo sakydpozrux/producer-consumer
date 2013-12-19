@@ -7,6 +7,8 @@ int main(int argc, char* argv[]) {
   argv_init(argc, argv);
   shared_mem_init();
 
+  show_run_info();
+
   create_producer();
   create_consumers();
 
