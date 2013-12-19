@@ -1,8 +1,13 @@
-#include <stdio.h>     /* for printf */
-#include <stdlib.h>    /* for exit */
+// 19.12.2013
+// Systemy Operacyjne 
+// prowadzacy - Zdzislaw Ploski
+// autor      - Szymon Koper
+// argsinit.c
+#include <stdio.h>
+#include <stdlib.h>
 #include <getopt.h>
 
-#include "additional.h"
+#include "help.h"
 
 struct option long_options[] = {
   {"producents-number", required_argument, 0, 'p'},

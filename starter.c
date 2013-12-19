@@ -1,18 +1,25 @@
-// Systemy Opracyjne
-// 18.12.2013 Szymon Koper
+// 19.12.2013
+// Systemy Operacyjne 
+// prowadzacy - Zdzislaw Ploski
+// autor      - Szymon Koper
 // starter.c
-#include "additional.h"
+#include "argsinit.h"
+#include "help.h"
+#include "shared_mem.h"
+#include "producers_supervisor.h"
+#include "consumers_supervisor.h"
 
 int main(int argc, char* argv[]) {
-  argv_init(argc, argv);
-  shared_mem_init();
+  shared_mem_connect();
+  shared_mem_default_init();
 
+  args_init(argc, argv);
   show_run_info();
 
-  create_producer();
+  create_producers();
   create_consumers();
 
-  wait_for_producer();
+  wait_for_producers();
   wait_for_consumers();
 
   return 0;

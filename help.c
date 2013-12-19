@@ -2,8 +2,14 @@
 // Systemy Operacyjne 
 // prowadzacy - Zdzislaw Ploski
 // autor      - Szymon Koper
-// additional.h
+// help.c
 #include <stdio.h>
+#include <sys/types.h>
+
+#include "help.h"
+#include "producers_supervisor.h"
+#include "consumers_supervisor.h"
+
 
 void show_usage() {
   char* program_name = run.argv[0];
@@ -20,5 +26,5 @@ void show_run_info() {
     "%d\t- waiting time for producer\n"
     "%d\t- waiting time for consumer\n"
     "\n"
-    , consumers.number, producer.sleep_time, consumers.sleep_time);
+    , consumers.number, producers.sleep_time, consumers.sleep_time);
 }

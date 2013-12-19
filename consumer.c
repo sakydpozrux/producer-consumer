@@ -4,14 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <unistd.h>
 
-#include "additional.h"
+#include "shared_mem.h"
 
 struct shared *shared_mem;
 
 int main(int argc, char* argv[]) {
   unsigned int sleep_time = atoi(argv[1]);
-  shared_mem_init();
+  shared_mem_connect();
 
   int consumed_limit = 4;
   
