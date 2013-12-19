@@ -10,11 +10,17 @@
 
 struct shared {
   sem_t sem;
-  int products_consumed;
-  int products_limit;
+  unsigned int products_consumed;
+  unsigned int products_limit;
+  unsigned int producers_number;
+  unsigned int consumers_number;
   unsigned int producer_sleep_time;
   unsigned int consumer_sleep_time;
 } *shared_mem;
+
+
+void shared_mem_connect();
+void shared_mem_default_init();
 
 #endif
 
