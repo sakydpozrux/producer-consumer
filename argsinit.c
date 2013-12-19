@@ -2,12 +2,15 @@
 #include <stdlib.h>    /* for exit */
 #include <getopt.h>
 
+#include "additional.h"
+
 struct option long_options[] = {
   {"producents-number", required_argument, 0, 'p'},
   {"consumers-number",  required_argument, 0, 'c'},
   {"producents-wait",   required_argument, 0, 'm'},
   {"consumers-wait",    required_argument, 0, 'e'},
   {"limit",             required_argument, 0, 'l'},
+  {"help",              no_argument,       0, 'h'},
   {0,                   0,                 0,  0 }
 };
 
@@ -15,12 +18,12 @@ int print_setting(char* name, char* value) {
   return printf("Setting '%s' with value '%s'\n", name, value);
 }
 
-int main(int argc, char **argv)
+void args_init(int argc, char** argv)
 {
   int c;
   int option_index = 0;
 
-  while ((c = getopt_long(argc, argv, "p:c:m:e:l:", long_options, &option_index)) != -1) {
+  while ((c = getopt_long(argc, argv, "p:c:m:e:l:h", long_options, &option_index)) != -1) {
     switch (c) {
       case 'p':
         print_setting("producents number", optarg);
@@ -42,6 +45,11 @@ int main(int argc, char **argv)
         print_setting("total products limit", optarg);
         break;
 
+      case 'h':
+        show_usage();
+        exit(EXIT_SUCCESS);
+        break;
+
       case '?':
         break;
 
@@ -56,7 +64,5 @@ int main(int argc, char **argv)
       printf("%s ", argv[optind++]);
     printf("\n");
   }
-
-  exit(EXIT_SUCCESS);
 }
 
