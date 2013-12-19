@@ -1,11 +1,11 @@
-starter : starter.c additional.c producer consumer
-	gcc -std=gnu99 -pthread -o starter starter.c additional.c -lrt
+starter : starter.c producers_supervisor.c consumers_supervisor.c shared_mem.c help.c argsinit.c producer consumer
+	gcc -std=gnu99 -pthread -o starter starter.c producers_supervisor.c shared_mem.c help.c argsinit.c consumers_supervisor.c -lrt
 
-producer : producer.c
-	gcc -std=gnu99 -pthread -o producer producer.c additional.c -lrt
+producer : producer.c shared_mem.c
+	gcc -std=gnu99 -pthread -o producer producer.c shared_mem.c -lrt
 
-consumer : consumer.c
-	gcc -std=gnu99 -pthread -o consumer consumer.c additional.c -lrt
+consumer : consumer.c shared_mem.c
+	gcc -std=gnu99 -pthread -o consumer consumer.c shared_mem.c -lrt
 
 clean :
 	rm starter producer consumer
