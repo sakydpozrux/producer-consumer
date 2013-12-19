@@ -14,9 +14,10 @@
 
 
 struct {
-  pid_t id;
+  int number;
+  pid_t* list;
   unsigned int sleep_time;
-  unsigned int products_limit;
+  //unsigned int products_limit;
 } producers;
 
 

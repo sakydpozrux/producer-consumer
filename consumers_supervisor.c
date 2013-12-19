@@ -4,12 +4,17 @@
 // autor      - Szymon Koper
 // consumers_supervisor.c
 //#include <stdlib.h>
-//#include <sys/types.h>
-//#include <sys/wait.h>
-//#include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 //#include <errno.h>
 //#include <string.h>
 //#include <stdbool.h>
+
+#include "consumers_supervisor.h"
+
 
 void create_consumers() {
   printf("Creating %d consumer processes with sleep time %ds\n", consumers.number, consumers.sleep_time);
@@ -21,7 +26,7 @@ void create_consumers() {
       char str_sleep_time[129];
       sprintf(str_sleep_time, "%d", consumers.sleep_time);
       execl("consumer", "consumer", str_sleep_time, NULL);
-      exit(127);
+      exit(EXIT_FAILURE);
     } else { /* pid != 0 <=> parent process */
       *p = id;
       printf("Created consumer id - %d\n", id);
