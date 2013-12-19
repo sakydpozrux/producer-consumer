@@ -5,6 +5,10 @@
 // shared_mem.c
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+#include "shared_mem.h"
 
 #define PRODUCERS_NUMBER    2
 #define CONSUMERS_NUMBER    4

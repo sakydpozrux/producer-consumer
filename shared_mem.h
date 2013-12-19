@@ -14,8 +14,8 @@ struct shared {
   unsigned int products_limit;
   unsigned int producers_number;
   unsigned int consumers_number;
-  unsigned int producer_sleep_time;
-  unsigned int consumer_sleep_time;
+  unsigned int producers_sleep_time;
+  unsigned int consumers_sleep_time;
 } *shared_mem;
 
 
