@@ -9,6 +9,7 @@
 #include "help.h"
 #include "producers_supervisor.h"
 #include "consumers_supervisor.h"
+#include "shared_mem.h"
 
 
 void show_usage() {
@@ -26,5 +27,5 @@ void show_run_info() {
     "%d\t- waiting time for producer\n"
     "%d\t- waiting time for consumer\n"
     "\n"
-    , consumers.number, producers.sleep_time, consumers.sleep_time);
+    , shared_mem->consumers.number, shared_mem->producers.sleep_time, shared_mem->consumers.sleep_time);
 }

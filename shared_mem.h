@@ -5,7 +5,7 @@
 // shared_mem.h
 #ifndef sharedmem
 #define sharedmem
-//#include <unistd.h>
+
 #include <semaphore.h>
 
 struct shared {
@@ -16,6 +16,19 @@ struct shared {
   unsigned int consumers_number;
   unsigned int producers_sleep_time;
   unsigned int consumers_sleep_time;
+  
+  struct {
+    int number;
+    pid_t* list;
+    unsigned int sleep_time;
+  } consumers;
+
+  struct {
+    int number;
+    pid_t* list;
+    unsigned int sleep_time;
+    //unsigned int products_limit;
+  } producers;
 } *shared_mem;
 
 

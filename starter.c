@@ -11,9 +11,10 @@
 
 int main(int argc, char* argv[]) {
   shared_mem_connect();
-  shared_mem_default_init();
 
+  shared_mem_default_init();
   args_init(argc, argv);
+
   show_run_info();
 
   create_producers();
