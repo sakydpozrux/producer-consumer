@@ -29,18 +29,17 @@ int main() {
           pid, products_consumed);
       sem_post(&shared_mem->sem);
       break;
+    } else if (shared_mem->products_ready > 0) {
+      ++shared_mem->products_consumed;
+      --shared_mem->products_ready;
+      printf("Consumed 1 product by %u. Total products - %u\n",
+          pid, shared_mem->products_ready);
+      ++products_consumed;
+      sem_post(&shared_mem->sem);
+      sleep(sleep_time);
     } else {
-      if (shared_mem->products_ready > 0) {
-        ++shared_mem->products_consumed;
-        --shared_mem->products_ready;
-        printf("Consumed 1 product by %u. Total products - %u\n",
-            pid, shared_mem->products_ready);
-        ++products_consumed;
-      }
       sem_post(&shared_mem->sem);
     }
-
-    sleep(sleep_time);
   }
 
   return 0;

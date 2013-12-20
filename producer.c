@@ -36,9 +36,9 @@ int main() {
           pid, shared_mem->products_ready);
       sem_post(&shared_mem->sem);
       ++products_produced;
+      sleep(sleep_time);
     }
 
-    sleep(sleep_time);
   }
 
   return 0;
