@@ -11,6 +11,9 @@
 
 struct shared {
   sem_t sem;
+
+  unsigned int products_ready;
+  unsigned int products_produced;
   unsigned int products_consumed;
   unsigned int products_limit;
 

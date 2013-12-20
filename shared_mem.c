@@ -25,6 +25,9 @@ void shared_mem_connect() {
 }
 
 void shared_mem_default_init() {
+  sem_init(&shared_mem->sem, 1, 1);
+  shared_mem->products_ready        = 0;
+  shared_mem->products_produced     = 0;
   shared_mem->products_consumed     = 0;
   shared_mem->products_limit        = PRODUCTS_LIMIT;
   shared_mem->producers.number      = PRODUCERS_NUMBER;

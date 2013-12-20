@@ -1,26 +1,44 @@
-// Systemy Opracyjne
-// 18.12.2013 Szymon Koper
+// 19.12.2013
+// Systemy Operacyjne 
+// prowadzacy - Zdzislaw Ploski
+// autor      - Szymon Koper
 // producer.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "shared_mem.h"
 
-struct shared *shared_mem;
+struct shared *shared_mem; // NOT SURE IF NEED THIS
 
-int main(int argc, char* argv[]) {
-  unsigned int sleep_time = atoi(argv[1]);
+int main() {
   shared_mem_connect();
 
-  int produced_limit = 20;
+  const unsigned int pid = getpid();
+
+  const unsigned int products_limit = shared_mem->products_limit;
+  const unsigned int sleep_time = shared_mem->producers.sleep_time;
+
+  unsigned int products_produced = 0;
 
   while(1) {
     sem_wait(&shared_mem->sem);
-    //TODO
-    sem_post(&shared_mem->sem);
-    //TODO
+    if (shared_mem->products_produced >= products_limit) {
+      printf("Producer %u exiting with %u made.\n",
+          pid, products_produced);
+      sem_post(&shared_mem->sem);
+      break;
+    } else {
+      ++shared_mem->products_produced;
+      ++shared_mem->products_ready;
+      printf("Produced 1 product by %u. Total products - %u\n",
+          pid, shared_mem->products_ready);
+      sem_post(&shared_mem->sem);
+      ++products_produced;
+    }
+
     sleep(sleep_time);
   }
 

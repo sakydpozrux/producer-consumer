@@ -22,7 +22,7 @@ void create_producers() {
     if (id == 0) { /* child process */
       char str_sleep_time[129];
       sprintf(str_sleep_time, "%d", shared_mem->producers.sleep_time);
-      execl("producer", "producer", str_sleep_time, NULL);
+      execl("producer", "producer", NULL);
       exit(EXIT_FAILURE);
     } else { /* pid != 0 <=> parent process */
       *p = id;
