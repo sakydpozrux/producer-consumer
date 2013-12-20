@@ -8,15 +8,12 @@
 
 #include <semaphore.h>
 
+
 struct shared {
   sem_t sem;
   unsigned int products_consumed;
   unsigned int products_limit;
-  unsigned int producers_number;
-  unsigned int consumers_number;
-  unsigned int producers_sleep_time;
-  unsigned int consumers_sleep_time;
-  
+
   struct {
     int number;
     pid_t* list;
@@ -27,7 +24,6 @@ struct shared {
     int number;
     pid_t* list;
     unsigned int sleep_time;
-    //unsigned int products_limit;
   } producers;
 } *shared_mem;
 

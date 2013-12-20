@@ -10,11 +10,11 @@
 
 #include "shared_mem.h"
 
-#define PRODUCERS_NUMBER    2
-#define CONSUMERS_NUMBER    4
-#define PRODUCERS_SLEEP_TIME 1
-#define CONSUMERS_SLEEP_TIME 2
-#define PRODUCTS_LIMIT      10
+#define PRODUCERS_NUMBER      2
+#define CONSUMERS_NUMBER      4
+#define PRODUCERS_SLEEP_TIME  1
+#define CONSUMERS_SLEEP_TIME  2
+#define PRODUCTS_LIMIT        10
 
 void shared_mem_connect() {
   int descriptor;
@@ -27,9 +27,9 @@ void shared_mem_connect() {
 void shared_mem_default_init() {
   shared_mem->products_consumed     = 0;
   shared_mem->products_limit        = PRODUCTS_LIMIT;
-  shared_mem->producers_number      = PRODUCERS_NUMBER;
-  shared_mem->consumers_number      = CONSUMERS_NUMBER;
-  shared_mem->producers_sleep_time  = PRODUCERS_SLEEP_TIME;
-  shared_mem->consumers_sleep_time  = CONSUMERS_SLEEP_TIME;
+  shared_mem->producers.number      = PRODUCERS_NUMBER;
+  shared_mem->consumers.number      = CONSUMERS_NUMBER;
+  shared_mem->producers.sleep_time  = PRODUCERS_SLEEP_TIME;
+  shared_mem->consumers.sleep_time  = CONSUMERS_SLEEP_TIME;
 }
 
