@@ -11,7 +11,6 @@
 
 #include "shared_mem.h"
 
-struct shared *shared_mem;
 
 int main() {
   shared_mem_connect();
