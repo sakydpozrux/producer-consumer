@@ -7,12 +7,6 @@
 #define help
 
 
-struct {
-  int argc;
-  char** argv;
-} run;
-
-
 void show_usage();
 void show_run_info();
 

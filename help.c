@@ -13,10 +13,16 @@
 
 
 void show_usage() {
-  char* program_name = run.argv[0];
-  printf("%s usage examples:\n", program_name);
-  printf("%s [NUMBER OF CONSUMERS]\n", program_name);
-  printf("%s [nr_of_CONSUMERS] [PRODUCER SLEEP TIME] [CONSUMER SLEEP TIME]\n", program_name);
+  char* program_name = "program";
+  printf("usage: %s [OPTION [<value>]]...\n", program_name);
+  printf("\n");
+  printf("List of arguments:\n");
+  printf("\t-p | --producents-number <value>   Set number of producent processes\n");
+  printf("\t-c | --consumers-number <value>    Set number of consumer processes\n");
+  printf("\t-m | --producents-wait <value>     Set waiting time for producer process after producing\n");
+  printf("\t-e | --consumers-wait <value>      Set waiting time for consumer process after consuming\n");
+  printf("\t-l | --limit <value>               Set limit of total products to produce\n");
+  printf("\t-h | --help                        Display this help\n");
 }
 
 void show_run_info() {
