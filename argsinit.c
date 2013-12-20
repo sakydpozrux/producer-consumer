@@ -8,6 +8,7 @@
 #include <getopt.h>
 
 #include "help.h"
+#include "shared_mem.h"
 
 struct option long_options[] = {
   {"producents-number", required_argument, 0, 'p'},
@@ -32,22 +33,32 @@ void args_init(int argc, char** argv)
     switch (c) {
       case 'p':
         print_setting("producents number", optarg);
+        if (atoi(optarg) >= 0)
+          shared_mem->producers.number = atoi(optarg);
         break;
 
       case 'c':
         print_setting("consumers number", optarg);
+        if (atoi(optarg) >= 0)
+          shared_mem->consumers.number = atoi(optarg);
         break;
 
       case 'm':
         print_setting("producents waiting time", optarg);
+        if (atoi(optarg) >= 0)
+          shared_mem->producers.sleep_time = atoi(optarg);
         break;
 
       case 'e':
         print_setting("consumers waiting time", optarg);
+        if (atoi(optarg) >= 0)
+          shared_mem->consumers.sleep_time = atoi(optarg);
         break;
 
       case 'l':
         print_setting("total products limit", optarg);
+        if (atoi(optarg) >= 0)
+          shared_mem->products_limit = atoi(optarg);
         break;
 
       case 'h':
